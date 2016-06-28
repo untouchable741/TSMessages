@@ -274,9 +274,8 @@ canBeDismissedByUser:(BOOL)dismissingEnabled
 
         UIColor *fontColor = [UIColor colorWithHexString:[current valueForKey:@"textColor"]];
 
-
-        self.textSpaceLeft = 2 * padding;
-        if (image) self.textSpaceLeft += image.size.width + 2 * padding;
+        self.textSpaceLeft = 0;
+        if (image) self.textSpaceLeft += image.size.width + padding;
 
         // Set up title label
         _titleLabel = [[UILabel alloc] init];
@@ -329,10 +328,10 @@ canBeDismissedByUser:(BOOL)dismissingEnabled
         if (image)
         {
             _iconImageView = [[UIImageView alloc] initWithImage:image];
-            self.iconImageView.frame = CGRectMake(padding * 2,
-                                                  padding,
-                                                  image.size.width,
-                                                  image.size.height);
+            self.iconImageView.frame = CGRectMake(padding,
+                                                  0,
+                                                  30,
+                                                  30);
             [self addSubview:self.iconImageView];
         }
 
@@ -450,9 +449,9 @@ canBeDismissedByUser:(BOOL)dismissingEnabled
     CGFloat currentHeight;
     CGFloat screenWidth = self.viewController.view.bounds.size.width;
     CGFloat padding = [self padding];
-
+    
     self.titleLabel.frame = CGRectMake(self.textSpaceLeft,
-                                       padding,
+                                       0,
                                        screenWidth - padding - self.textSpaceLeft - self.textSpaceRight,
                                        0.0);
     [self.titleLabel sizeToFit];
@@ -486,7 +485,7 @@ canBeDismissedByUser:(BOOL)dismissingEnabled
         {
             // z-align
             self.iconImageView.center = CGPointMake([self.iconImageView center].x,
-                                                    round(currentHeight / 2.0));
+                                                    CGRectGetMidY(self.iconImageView.frame));
         }
     }
 
